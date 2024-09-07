@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #D1E9F6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 450px;
+            margin-top: 100px;
+            margin-bottom: 100px;
+            background-color: #D1E9F6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        .btn-primary {
+            background-color: white;
+            color: blue;
+            border: 2px solid lavender;
+        }
+        .btn-primary:hover {
+            background-color: #f8f9fa;
+            color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="kk.png" alt="Sign Up Image" class="img-fluid" style="max-width: 150px; margin-top: 25px; margin-bottom: 20px; margin-left: 125px;">
+        <h4 class="text-center"><b>Login In To Your Account</b></h4>
+        <form id="login-form" method="POST" action="{{ url_for('login') }}">
+            <div class="form-group">
+                <input type="email" class="form-control" id="username" name="username" required placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" name="password" required placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <p id="login-error" class="text-danger hidden mt-2">Invalid username or password</p>
+        </form>
+        <p class="text-center mt-3">Don't have an account? <a href="{{ url_for('signup') }}">Sign up here</a>.</p>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

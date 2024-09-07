@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport Results</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #D1E9F6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            background-color: #D1E9F6;
+            margin: 50px auto;
+            
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .academy, .coach {
+            margin-bottom: 20px;
+            background-color: #D1E9F6;
+        }
+
+        .coach {
+            margin-left: 20px;
+            background-color: #D1E9F6;
+        }
+
+        .academy h3, .coach h4 {
+            margin: 0;
+        }
+
+        .info {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Results for {{ sport }}</h2>
+
+        {% for item in data %}
+        <div class="academy">
+            <h3>Academy: {{ item.academy_name }}</h3>
+            <p class="info">Address: {{ item.address }}</p>
+            <p class="info">Phone: {{ item.academy_phone }}</p>
+            <p class="info">Email: {{ item.academy_email }}</p>
+
+            <div class="coach">
+                <h4>Coach: {{ item.coach_name }}</h4>
+                <p class="info">Specialization: {{ item.specialization }}</p>
+                <p class="info">Phone: {{ item.coach_phone }}</p>
+                <p class="info">Email: {{ item.coach_email }}</p>
+                <p class="info">Achievements: {{ item.achievements }}</p>
+                <p class="info">Certifications: {{ item.certifications }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

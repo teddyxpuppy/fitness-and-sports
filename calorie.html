@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Intake Calculator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #D1E9F6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+       .container {
+            max-width: 450px;
+            margin-top: 100px;
+	    margin-bottom: 100px;
+            background-color: #D1E9F6; /* Adding a white background to the form container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .food-item {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calorie Intake Calculator</h1>
+
+        <div id="foodItems">
+            <div class="food-item">
+                <div class="form-group">
+                    <label for="food1">Food Item 1:</label>
+                    <input type="text" id="food1" class="form-control" placeholder="Enter food name" oninput="updateCalories(1)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="calories1">Calories per Serving:</label>
+                    <input type="number" id="calories1" class="form-control" placeholder="Calories per serving" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="times1">Times Eaten:</label>
+                    <input type="number" id="times1" class="form-control" placeholder="How many times did you eat it today?">
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-success btn-block" onclick="addFoodItem()">Add Another Food Item</button>
+        <button class="btn btn-primary btn-block" onclick="calculateTotalCalories()">Calculate Total Calories</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        let foodCount = 1;
+
+        const calorieData = {
+            "rice": 130,
+            "bread": 80,
+            "apple": 52,
+            "banana": 89,
+            "chicken breast": 165,
+            "egg": 78,
+	"dal": 150,
+"sambar": 150,
+"rasam": 100,
+"chapathi": 200,
+"idly": 100,
+"chutney": 50,
+"kurma": 200,
+"vada": 250,
+"bonda": 300,
+"pongal": 200,
+"lemonrice": 200,
+"tamarind Rice": 200,
+"mysorebonda": 300,
+"vadapaw": 300,
+"samyakeer": 200,
+"gulabjamoon": 250,
+"laddu": 300,
+"breadhalwa": 300,
+"sprouts": 50,
+"apple": 95,
+"banana": 105,
+"orange": 60,
+"papaya": 55,
+"mango": 100,
+"pumpkin": 45,
+"watermelon": 45,
+"cashews": 160,
+"kissmis": 120,
+"acroot": 120,
+"badam": 160,
+"somp": 120,
+"dates": 120,
+"anjeera": 160,
+"pista": 160,
+"chiaseeds": 100,
+"greengrams": 110,
+"bengalgram": 110,
+"wheat": 100,
+"horsegram": 110,
+"hotchips": 150,
+"boondhi": 200,
+"chat": 200,
+"atukulamixture": 250,
+"panipuri": 200,
+"biriyani": 500,
+            // Add more foods and their calorie values here
+        };
+
+        function addFoodItem() {
+            foodCount++;
+            const foodItemsDiv = document.getElementById('foodItems');
+            const newFoodItem = document.createElement('div');
+            newFoodItem.classList.add('food-item');
+            newFoodItem.innerHTML = `
+                <div class="form-group">
+                    <label for="food${foodCount}">Food Item ${foodCount}:</label>
+                    <input type="text" id="food${foodCount}" class="form-control" placeholder="Enter food name" oninput="updateCalories(${foodCount})">
+                </div>
+
+                <div class="form-group">
+                    <label for="calories${foodCount}">Calories per Serving:</label>
+                    <input type="number" id="calories${foodCount}" class="form-control" placeholder="Enter calories per serving" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="times${foodCount}">Times Eaten:</label>
+                    <input type="number" id="times${foodCount}" class="form-control" placeholder="How many times did you eat it today?">
+                </div>
+            `;
+            foodItemsDiv.appendChild(newFoodItem);
+        }
+
+        function updateCalories(foodItemNumber) {
+            const foodInput = document.getElementById(`food${foodItemNumber}`).value.toLowerCase();
+            const calorieInput = document.getElementById(`calories${foodItemNumber}`);
+
+            if (calorieData[foodInput]) {
+                calorieInput.value = calorieData[foodInput];
+            } else {
+                calorieInput.value = '';
+            }
+        }
+
+        function calculateTotalCalories() {
+            let totalCalories = 0;
+
+            for (let i = 1; i <= foodCount; i++) {
+                const calories = document.getElementById(`calories${i}`).value;
+                const times = document.getElementById(`times${i}`).value;
+
+                if (calories && times) {
+                    totalCalories += calories * times;
+                }
+            }
+
+            document.getElementById('result').innerHTML = `Your total calorie intake today is approximately <strong>${Math.round(totalCalories)}</strong> calories.`;
+        }
+    </script>
+</body>
+</html>

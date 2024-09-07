@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Academy</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #D1E9F6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin-top: 100px;
+            margin-bottom: 100px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group button {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .form-group button:hover {
+            background: #0056b3;
+        }
+
+        .coach-form {
+            margin-top: 20px;
+        }
+
+        .coach-form input {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Register Academy</h1>
+        <form id="academy-form" method="POST" action="/submit_academy">
+            <div class="form-group">
+                <input type="text" id="academyName" name="academyName" required placeholder="Academy Name">
+            </div>
+            <div class="form-group">
+                <input type="text" id="academyAddress" name="academyAddress" required placeholder="Address">
+            </div>
+            <div class="form-group">
+                <input type="text" id="academyPhone" name="academyPhone" required placeholder="Phone">
+            </div>
+            <div class="form-group">
+                <input type="email" id="academyEmail" name="academyEmail" required placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="number" id="numCoaches" name="numCoaches" min="1" required placeholder="Number of Coaches">
+            </div>
+            <div id="coachesContainer"></div>
+            <div class="form-group">
+                <button type="submit">Register Academy</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('numCoaches').addEventListener('input', function() {
+            const numCoaches = parseInt(this.value);
+            const coachesContainer = document.getElementById('coachesContainer');
+            coachesContainer.innerHTML = '';
+
+            for (let i = 1; i <= numCoaches; i++) {
+                coachesContainer.innerHTML += `
+                    <div class="coach-form">
+                        <h3>Coach ${i}</h3>
+                        <div class="form-group">
+                            <label for="coachName${i}">Name:</label>
+                            <input type="text" id="coachName${i}" name="coachName${i}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="coachSpecialization${i}">Specialization:</label>
+                            <input type="text" id="coachSpecialization${i}" name="coachSpecialization${i}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="coachAchievements${i}">Achievements:</label>
+                            <input type="text" id="coachAchievements${i}" name="coachAchievements${i}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="coachPhone${i}">Phone:</label>
+                            <input type="text" id="coachPhone${i}" name="coachPhone${i}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="coachEmail${i}">Email:</label>
+                            <input type="email" id="coachEmail${i}" name="coachEmail${i}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="coachCertifications${i}">Certifications:</label>
+                            <input type="text" id="coachCertifications${i}" name="coachCertifications${i}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="coachGender${i}">Gender:</label>
+                            <input type="text" id="coachGender${i}" name="coachGender${i}" required>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
